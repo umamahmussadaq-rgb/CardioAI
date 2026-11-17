@@ -2,11 +2,10 @@
 
 ## CardioAI: A Quality-Aware and Explainable AI Platform for Noise-Robust ECG Arrhythmia Analysis
 
-Student Name: Umamah binte Mussadaq
-Enrollment Number: 537450
-**Project Track:** Track B — Product Development  
+**Student Name:** Umamah binte Mussadaq
+**Enrollment Number:** 537450
 **Course:** AI-853 — Advanced Programming in Python  
-**Project Type:** Individual, Software-Based AI Product
+
 
 ### 1. Problem
 
