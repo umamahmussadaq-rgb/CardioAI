@@ -1,89 +1,167 @@
-# PROJECT PROPOSAL
 
-## CardioAI: A Quality-Aware and Explainable AI Platform for Noise-Robust ECG Arrhythmia Analysis
+# CardioAI
+### An Integrated AI-Powered ECG Monitoring and Arrhythmia Analysis Platform
 
-**Student Name:** Umamah binte Mussadaq  
-**Enrollment Number:** 537450  
-**Course:** AI-853 — Advanced Programming in Python  
-**Project Track:** Track B — Product Development  
-**Project Type:** Individual, Software-Based AI Product
+## Project Overview
 
-### 1. Problem Statement
+CardioAI is a biomedical engineering project designed to integrate ECG acquisition hardware with an AI-powered software platform for real-time ECG monitoring and offline ECG analysis.
 
-Electrocardiogram (ECG) recordings can contain noise and artifacts caused by movement, electrode contact and baseline wandering. These disturbances can affect the reliability of automated ECG analysis. Users also need to understand whether a signal is suitable for analysis and why an AI model produces a particular prediction.
+The platform supports two operating modes:
 
-CardioAI aims to provide an integrated software platform for ECG preprocessing, signal-quality assessment, arrhythmia classification, explainable AI and automated reporting.
+1. **Real-Time ECG Monitoring:** Acquires ECG signals from connected hardware and processes them continuously.
+2. **Offline ECG Analysis:** Allows users to upload ECG recordings and datasets for preprocessing, visualization, and AI-based arrhythmia classification.
 
-### 2. Target Users and Evidence
+Both modes utilize a shared signal-processing and AI inference pipeline to ensure consistent analysis.
 
-The intended users include biomedical engineering students, biomedical signal-processing researchers and university research laboratories.
+## Key Features
 
-At least five potential users will be consulted before development to identify their current ECG analysis workflows, challenges and desired features. Actual feedback will be documented after conducting the interviews.
+- Real-time ECG signal acquisition.
+- Offline ECG recording and dataset upload.
+- ECG signal preprocessing and noise filtering.
+- Baseline wander and noise assessment.
+- ECG waveform visualization.
+- AI-based heartbeat and arrhythmia classification.
+- Signal-quality assessment.
+- Prediction confidence estimation.
+- Uncertain prediction rejection (selective prediction).
+- Explainability and visualization of AI predictions.
+- Downloadable ECG analysis reports.
 
-### 3. Existing Solutions and Product Gap
+## System Architecture
 
-Three related solutions will be reviewed:
+### Input Layer
+- Live ECG hardware acquisition.
+- Offline ECG file and dataset upload.
 
-1. **ExChanGeAI:** An ECG analysis platform supporting signal analysis, model training and prediction.
-2. **Cordis:** An ECG/PPG analysis platform providing signal processing, biomarkers and artifact correction.
-3. **BRAVEHEART:** Open-source software for automated ECG and vectorcardiogram processing.
+### Signal Processing Layer
+- Signal validation.
+- Metadata handling.
+- Signal normalization.
+- Noise filtering.
+- Beat segmentation and detection.
+- Signal-quality assessment.
 
-**Proposed product gap:** CardioAI will focus on integrating signal-quality assessment, noise-robust arrhythmia classification, prediction confidence and explainable AI into an accessible research-oriented application. Existing solutions will be evaluated to verify the specific differences.
+### Artificial Intelligence Layer
+- ECG heartbeat classification.
+- Model confidence estimation.
+- Quality-aware prediction rejection.
 
-### 4. Proposed Product and AI Components
+### Visualization Layer
+- Real-time ECG waveform display.
+- Arrhythmia classification results.
+- Confidence indicators.
+- Signal-quality warnings.
+- Explainability visualizations.
+- Analysis reports.
 
-CardioAI will be developed as an interactive Python-based web application with the following modules:
+## Dataset
 
-- ECG data upload using CSV and WFDB formats.
-- Signal preprocessing, filtering and baseline-wander removal.
-- Automated signal-quality assessment.
-- Machine-learning/deep-learning-based arrhythmia classification.
-- Noise-robustness evaluation under controlled noise conditions.
-- Explainable AI visualizations to interpret model predictions.
-- Prediction confidence and uncertainty indicators.
-- Interactive ECG visualization and downloadable reports.
+The initial development will utilize:
 
-**Datasets:**
 - MIT-BIH Arrhythmia Database.
-- PTB-XL ECG Dataset.
+- PTB-XL ECG Dataset (optional, for a separate compatible classification task).
 
-**Technologies:** Python, Google Colab, NumPy, Pandas, SciPy, NeuroKit2, Scikit-learn, PyTorch or TensorFlow, Plotly, Streamlit and GitHub.
+Dataset labels and classification mappings will be documented according to the selected experimental methodology.
 
-### 5. Success Measures
+## Technology Stack
 
-The product will be evaluated using:
+### Programming
+- Python
 
-- Accuracy, precision, recall, F1-score and confusion matrix.
-- AUROC where appropriate.
-- Signal-quality assessment performance.
-- Classification performance under different noise levels.
-- Changes in F1-score as noise increases.
-- Prediction explanations and confidence estimates.
-- Usability feedback from at least five real users.
+### Signal Processing
+- NumPy
+- SciPy
+- Pandas
+- WFDB
+- NeuroKit2
 
-All numerical results will be obtained through actual experiments and testing.
+### Machine Learning / Deep Learning
+- Scikit-learn
+- TensorFlow / PyTorch
 
-### 6. Development Plan
+### Visualization and Interface
+- Streamlit
+- Plotly
+- Matplotlib
 
-**By 4 December 2026:**
-- Review existing solutions and obtain ECG datasets.
-- Implement ECG data loading and preprocessing.
-- Develop an initial arrhythmia classification model.
-- Demonstrate a working prototype.
-- Maintain regular GitHub commits.
+### Hardware Integration
+- ECG acquisition hardware
+- Microcontroller-based communication interface
+- USB Serial / Wi-Fi / Bluetooth (subject to hardware verification)
 
-**By 18 December 2026:**
-- Integrate signal-quality assessment.
-- Implement noise-robustness experiments.
-- Add explainability and confidence visualization.
-- Complete the Streamlit application.
-- Conduct testing with at least five users.
-- Prepare the final product report.
+### Version Control
+- Git
+- GitHub
 
-**Fallback Plan:** If the complete implementation cannot be finished, the minimum working product will include ECG upload, preprocessing, waveform visualization, a baseline classification model and a basic analysis report.
+## Project Objectives
 
-### 7. Expected Deliverable
+1. Develop an integrated ECG acquisition and analysis platform.
+2. Support both real-time and offline ECG inputs.
+3. Implement a unified signal-processing pipeline.
+4. Develop AI-based arrhythmia classification.
+5. Incorporate signal-quality assessment and prediction confidence.
+6. Evaluate system performance under different noise conditions.
+7. Provide interpretable and reproducible ECG analysis.
 
-The expected deliverable is a working software-only ECG analysis platform integrating digital signal processing, machine learning, explainable AI and interactive visualization. The final submission will include the application, GitHub repository, experimental evaluation and a 4–6 page product report.
+## Evaluation Metrics
 
-**Scope Limitation:** CardioAI is intended for educational and research purposes and is not a clinically validated diagnostic system.
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Confusion Matrix
+- AUROC (where appropriate)
+- Signal-quality assessment performance
+- Prediction coverage and rejection performance
+- Real-time processing latency
+
+## Project Status
+
+**Development Stage:** Proposed / In Progress
+
+The project will be developed in phases, beginning with hardware verification and offline ECG analysis, followed by real-time hardware integration, AI implementation, and system evaluation.
+
+## Safety Disclaimer
+
+CardioAI is an educational and research prototype. It is not a clinically validated diagnostic system and must not be used as a replacement for professional medical assessment.
+
+## Repository Structure
+
+```text
+CardioAI/
+│
+├── README.md
+├── PROPOSAL.md
+├── proposal/
+│   └── CardioAI_Updated_Project_Proposal.pdf
+│
+├── data/
+│   ├── raw/
+│   └── processed/
+│
+├── hardware/
+│   ├── acquisition/
+│   └── communication/
+│
+├── preprocessing/
+│
+├── models/
+│
+├── evaluation/
+│
+├── visualization/
+│
+├── app/
+│
+├── requirements.txt
+└── .gitignore
+```
+
+*Directory structure represents the planned organization and may be adjusted during implementation.*
+
+## References
+
+1. MIT-BIH Arrhythmia Database: https://physionet.org/content/mitdb/
+2. PTB-XL Dataset: https://physionet.org/content/ptb-xl/
+3. ExChanGeAI: https://www.jmir.org/2026/1/e81116/
+4. XBeats ECG Monitoring System: https://www.mdpi.com/2624-6120/3/2/13
