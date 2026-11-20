@@ -1,59 +1,84 @@
 # CardioAI
 
-A research and educational platform for multilead ECG acquisition, visualization, signal processing, and arrhythmia-analysis experiments.
+**CardioAI** is a software-only research and educational platform for multi-lead ECG dataset analysis, signal-quality assessment, explainable AI classification, and robustness testing.
 
-## Architecture
+## Current project scope
 
-- **ECG front end:** isolated multichannel ECG acquisition hardware.
-- **Raspberry Pi:** acquires synchronized ECG samples and streams them over local Wi-Fi.
-- **Laptop:** runs the CardioAI interface, displays live ECG traces, stores recordings, and runs analysis.
-- **Transport:** WebSocket over a trusted local network.
+This development phase uses previously recorded ECG datasets only. It does **not** include Raspberry Pi, physical electrodes, live ECG acquisition, or real-time patient monitoring.
 
-## Current milestone: Wi-Fi live-view foundation
+- Primary dataset: **PTB-XL** (12-lead ECG)
+- Application: **Streamlit**
+- Core language: **Python**
+- Research focus: lead-quality assessment, lead-wise explainability, and missing/corrupted-lead robustness
 
-- `raspberry_pi/stream_server.py` — real-hardware server scaffold; acquisition adapter remains to be implemented for the selected ECG front end.
-- `raspberry_pi/simulated_stream.py` — artificial 12-channel test stream for checking the laptop viewer and Wi-Fi connection. It is not physiological data.
-- `laptop/live_viewer.py` — laptop-side 12-trace live plotting client.
-- `src/cardioai/` — reusable signal-processing modules (under development).
-- `tests/` — automated tests (under development).
+See [PROPOSAL.md](PROPOSAL.md) for the updated project proposal.
 
-## Run a software-only connection test
+## Planned software workflow
 
-Install dependencies on both devices:
+1. Upload or select a supported ECG dataset recording.
+2. Validate metadata, lead count, sampling frequency, and labels.
+3. Visualize raw ECG signals across the available leads.
+4. Preprocess signals using documented filtering and normalization.
+5. Assess signal quality for each lead.
+6. Run baseline and proposed multi-lead classification models.
+7. Explain predictions using lead-wise contribution visualizations and perturbation tests.
+8. Evaluate robustness when selected leads are noisy, corrupted, or missing.
+9. Export an analysis summary.
 
-```bash
-python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# Raspberry Pi / Linux / macOS:
-source .venv/bin/activate
-pip install -r requirements.txt
+## Proposed research components
+
+### 1. Lead-quality assessment
+Calculate per-lead signal-quality indicators and identify potentially unreliable segments. Any proxy quality labels derived from signal rules or synthetic corruption will be clearly distinguished from clinical ground truth.
+
+### 2. Lead-wise explainability
+Use a lead-attention or learned lead-weighting mechanism and validate the resulting explanations with lead-occlusion experiments. Attention weights will not be interpreted as causal evidence.
+
+### 3. Missing- and corrupted-lead robustness
+Evaluate model performance under controlled lead dropout, noise, and baseline-drift conditions at documented severity levels.
+
+The novelty of this combination will be assessed through a focused literature review and baseline comparisons.
+
+## Dataset plan
+
+- **PTB-XL:** primary 12-lead dataset.
+- **MIT-BIH Arrhythmia Database:** optional separate two-channel experiment; not a directly equivalent 12-lead test set.
+
+Use patient-independent data splits and avoid leakage between training, validation, and test sets. Follow dataset licenses and terms; do not commit restricted raw datasets to this repository.
+
+## Technology stack
+
+- Python, NumPy, SciPy, pandas, WFDB
+- PyTorch or TensorFlow (final choice to be documented)
+- scikit-learn
+- Streamlit, Plotly, Matplotlib
+- Git and GitHub
+
+## Planned repository organization
+
+```text
+CardioAI/
+├── README.md
+├── PROPOSAL.md
+├── requirements.txt
+├── data/                 # dataset instructions; raw data excluded from Git
+├── src/
+│   └── cardioai/
+│       ├── data/         # dataset loaders and metadata handling
+│       ├── preprocessing/
+│       ├── quality/
+│       ├── models/
+│       ├── explainability/
+│       └── evaluation/
+├── app/                  # Streamlit application
+├── notebooks/            # exploration and experiments
+├── tests/
+└── reports/              # generated experiment summaries
 ```
 
-On the Raspberry Pi, start the artificial stream:
+## Evaluation
 
-```bash
-python raspberry_pi/simulated_stream.py
-```
+Report macro-F1, per-class precision/recall, AUROC or AUPRC where appropriate, confusion matrices, class-wise sensitivity/specificity, and robustness degradation under controlled corruptions. Document patient-level splitting and reproducibility settings.
 
-Find the Pi's Wi-Fi IP address with:
+## Safety and intended use
 
-```bash
-hostname -I
-```
-
-On the laptop, connected to the same Wi-Fi network, run:
-
-```bash
-python laptop/live_viewer.py --host RASPBERRY_PI_IP
-```
-
-Replace `RASPBERRY_PI_IP` with the actual address, for example `192.168.1.50`. Allow TCP port 8765 through the Pi firewall if required.
-
-## ECG lead and hardware design notes
-
-A standard 12-lead ECG uses 10 electrodes. The limb and chest electrode potentials are used to derive the 12 displayed leads. The acquisition channel count and lead derivation must match the selected ECG analog front end; do not assume 12 independent ADC channels are required.
-
-Do not connect electrodes or patient leads directly to Raspberry Pi GPIO. Use an ECG analog front end designed for biopotential acquisition, appropriate input protection, isolation, and a reviewed patient-safety design. This project is for research and education and is not a clinically validated diagnostic device.
-
-Synthetic waveforms are only for software testing. They are not real ECG data and must not be used to validate a classifier or make medical decisions.
+CardioAI is for research and education. It is not a clinically validated diagnostic device and must not be used to make medical decisions or replace professional assessment.
