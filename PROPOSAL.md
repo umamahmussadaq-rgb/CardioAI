@@ -10,11 +10,13 @@ CardioAI is a software-only research and product-development project. It will an
 - **Enrollment No.:** 537450
 - **Course:** AI-853 — Advanced Programming in Python
 - **Project Track:** Track B — Product Development
-- **Application:** Python / Streamlit
+- **Development environment:** Microsoft Visual Studio IDE
+- **Programming language:** Python
+- **Application interface:** Streamlit
 - **Primary dataset:** PTB-XL (12-lead ECG)
 
 ## 1. Abstract
-CardioAI is a software platform for loading, visualizing, preprocessing, and classifying previously recorded electrocardiogram (ECG) signals. The initial implementation will focus on 12-lead recordings from the publicly available PTB-XL dataset. The proposed workflow combines per-lead signal-quality assessment, multi-lead deep-learning classification, lead-wise explainability, and robustness evaluation under missing or corrupted lead conditions. A Streamlit application will allow users to upload supported ECG files, inspect raw and processed waveforms, review model outputs, and export analysis summaries. The system is intended for research and education and is not a clinically validated diagnostic tool.
+CardioAI is a software platform for loading, visualizing, preprocessing, and classifying previously recorded electrocardiogram (ECG) signals. The initial implementation will focus on 12-lead recordings from the publicly available PTB-XL dataset. The proposed workflow combines per-lead signal-quality assessment, multi-lead deep-learning classification, lead-wise explainability, and robustness evaluation under missing or corrupted lead conditions. A Python-based application developed in Microsoft Visual Studio will use Streamlit as its user interface. The Streamlit application will allow users to upload supported ECG files, inspect raw and processed waveforms, review model outputs, and export analysis summaries. The system is intended for research and education and is not a clinically validated diagnostic tool.
 
 ## 2. Problem Statement
 ECG classification can be affected by noisy recordings, unreliable leads, class imbalance, and limited interpretability. A model may produce a prediction when some input leads are corrupted or unavailable without communicating how signal quality affects the result. Users may also receive a class label without understanding which leads contributed to the prediction. CardioAI will investigate a quality-aware and explainable workflow and evaluate reliability under controlled signal degradation.
@@ -68,14 +70,16 @@ Use patient-independent data splits. Fit preprocessing and model-selection param
 9. **Application:** Build a Streamlit workflow for upload, plotting, preprocessing, prediction, warnings, and export.
 
 ## 8. Software Architecture and Tools
+- **Development environment:** Microsoft Visual Studio IDE with the Python development workload
 - **Programming:** Python
 - **Data processing:** NumPy, SciPy, pandas, WFDB
 - **Machine learning:** PyTorch or TensorFlow (one framework will be selected for the final pipeline)
 - **Visualization and interface:** Matplotlib, Plotly, Streamlit
+- **Development workflow:** Create, edit, run, and debug the Python project in Microsoft Visual Studio; launch the Streamlit interface from the Visual Studio terminal.
 - **Evaluation:** scikit-learn and reproducible experiment scripts
 - **Version control:** Git and GitHub
 
-The repository will separate dataset loading, preprocessing, quality assessment, model training, evaluation, explainability, and the Streamlit application. Public datasets will not be redistributed unless their terms permit it.
+Microsoft Visual Studio will be used as the main integrated development environment (IDE) for creating, editing, running, and debugging the Python code. Streamlit is the application framework that renders the interactive browser-based interface; it is not a replacement for Visual Studio. The repository will separate dataset loading, preprocessing, quality assessment, model training, evaluation, explainability, and the Streamlit application. Public datasets will not be redistributed unless their terms permit it.
 
 ## 9. Evaluation Plan
 Classification will be evaluated using macro-F1, per-class precision and recall, AUROC and/or AUPRC where appropriate, confusion matrices, and class-wise sensitivity and specificity. Calibration and confidence behaviour will be examined where probability outputs are available. Quality assessment will be evaluated against defined proxy labels or controlled corruption conditions, with limitations stated. Robustness will be measured by comparing clean, noisy, and missing-lead inputs at multiple corruption levels. Confidence intervals or repeated-run variability will be reported where feasible.
